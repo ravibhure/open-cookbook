@@ -1,6 +1,6 @@
 = Open Cookbooks
 
-= DESCRIPTION
+= Description
 
 == Synopsis
 
@@ -11,9 +11,9 @@ Refer to the wiki (https://github.com/ravibhure/open_cookbook/wikis) for up-to-d
 Also use the built-in issues tracker (https://github.com/ravibhure/open_cookbook/issues)
 to report issues.
 
-= ADDITIONAL RESOURCES
+= Additional Resources
 
-* [1] Look for more at http://www.indiangnu.org
+* Look more at http://www.indiangnu.org
 
 = License and Author
 
