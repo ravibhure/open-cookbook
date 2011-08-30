@@ -1,0 +1,29 @@
+= Open Cookbooks
+
+= Description
+
+== Synopsis
+
+This is the bunch of cookbooks that helps to setup system admins within the open source integration framework called Chef. 
+
+Refer to the wiki (https://github.com/ravibhure/open_cookbook/wikis) for up-to-date documentation.
+
+Also use the built-in issues tracker (https://github.com/ravibhure/open_cookbook/issues)
+to report issues.
+
+= Additional Resources
+
+* Look more at http://www.indiangnu.org
+
+= License and Author
+
+Author:: Ravi Bhure (ravibhure@gmail.com)
+
+Copyright 2011, Ravi Bhure
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+

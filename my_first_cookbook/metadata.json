@@ -1,0 +1,58 @@
+{
+    "recipes": {
+      "my_first_cookbook::default": "Runs my_first_cookbook::install_apache.",
+      "my_first_cookbook::install_apache": "Install and configure Apache2 webserver."
+    },
+    "my_first_cookbook/mpm": {
+        "required": "optional",
+        "calculated": false,
+        "choice": [
+          "prefork",
+          "worker"
+        ],
+        "default": "prefork",
+        "type": "string",
+        "recipes": [
+          "my_first_cookbook::default",
+          "my_first_cookbook::install_apache"
+        ],
+        "display_name": "Multi-Processing Module",
+        "description": "Can be set to 'worker' or 'prefork' and defines the setting in httpd.conf.  Use 'worker' for Rails/Tomcat/Standalone frontends and 'prefork' for PHP."
+      },
+    "my_first_cookbook/application_name": {
+        "required": "optional",
+        "calculated": false,
+        "choice": [
+
+        ],
+        "default": "myappserver",
+        "type": "string",
+        "recipes": [
+          "my_first_cookbook::default",
+          "my_first_cookbook::install_apache"
+        ],
+        "display_name": "Application Name",
+        "description": "Sets the directory for your application's web files (/home/webapps/Application Name/current/).  If you have multiple applications, you can run the code checkout script multiple times, each with a different value for APPLICATION, so each application will be stored in a unique directory.  This must be a valid directory name.  Do not use symbols in the name."
+      },
+ "recommendations": {
+    },
+    "description": "Installs/configures the apache2 webserver",
+    "dependencies": {
+      "apache2": [
+
+      ]
+    },
+    "maintainer": "Ravi Bhure",
+    "suggestions": {
+    },
+    "maintainer_email": "me@ravibhure.com",
+    "conflicting": {
+    },
+    "version": "0.0.1",
+    "name": "my_first_cookbook",
+    "providing": {
+    },
+    "platforms": {
+    },
+    "license": "Copyright 2011, Ravi Bhure.\n\nAuthor:: Ravi Bhure (ravibhure@gmail.com)\n"
+}
