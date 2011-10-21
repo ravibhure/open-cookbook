@@ -19,6 +19,7 @@
   "recommendations": {
   },
   "recipes": {
+    "haproxy::default": "HAproxy recipe, Installs and configures HAproxy"
   },
   "groupings": {
   },
