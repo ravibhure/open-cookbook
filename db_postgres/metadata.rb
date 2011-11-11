@@ -6,6 +6,7 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.0.1"
 
 recipe  "db_postgres::default", "Runs the client 'db_postgres::install_client' recipes."
+recipe  "db_postgres::setup_monitoring", "Runs to setup monitoring on client  'db_postgres::setup_monitoring' recipes."
 
 attribute "db_postgres",
   :display_name => "General Database Options",

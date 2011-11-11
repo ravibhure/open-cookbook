@@ -22,37 +22,19 @@
 action :install_client do
 
    # == Install PostgreSQL 9.1.1 package(s)
-  # 
+  #
   arch = node[:kernel][:machine]
   arch = "i386" if arch == "x86_64"
-  
-  if node[:platform] == "centos"
 
-    # Install PostgreSQL GPG Key (http://yum.postgresql.org/9.1/redhat/rhel-5-(arch)/pgdg-centos91-9.1-4.noarch.rpm)
+  # Install PostgreSQL GPG Key (http://yum.postgresql.org/9.1/redhat/rhel-5-(arch)/pgdg-centos91-9.1-4.noarch.rpm)
     gpgkey = ::File.join(::File.dirname(__FILE__), "..", "files", "centos", "pgdg-centos91-9.1-4.noarch.rpm")
     `rpm --install #{gpgkey}`
 
     # Packages from rightscale-software repository for PostgreSQL 9.1.1
-    packages = (::File.join(::File.dirname(__FILE__), "..", "files", "centos", "postgresql91-devel-9.1.1-1PGDG.rhel5.#{arch}.rpm") 
+    packages = (::File.join(::File.dirname(__FILE__), "..", "files", "centos", "postgresql91-devel-9.1.1-1PGDG.rhel5.#{arch}.rpm")
     `rpm --install #{packages}`
-    
-  else
 
-    # Install development library in compile phase
-    p = package "mysql-dev" do
-      package_name value_for_platform(
-        "ubuntu" => {
-          "8.04" => "libmysqlclient15-dev",
-          "8.10" => "libmysqlclient15-dev",
-          "9.04" => "libmysqlclient15-dev"
-        },
-        "default" => 'libmysqlclient-dev'
-      )
-      action :nothing
-    end
-    p.run_action(:install)
-
-    # install client in converge phase
+  # install client in converge phase
     package "postgresql191-devel" do
       package_name value_for_platform(
         [ "centos", "redhat", "suse" ] => { "default" => "postgresql" },
@@ -75,7 +57,6 @@ action :install_client do
 
   Gem.clear_paths
   log "Gem reload forced with Gem.clear_paths"
-  end
   end
 
 action :setup_monitoring do
@@ -113,4 +94,5 @@ action :setup_monitoring do
     end
 
   end
-end  
+end
+
