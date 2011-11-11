@@ -24,7 +24,7 @@ action :install_client do
    # == Install PostgreSQL 9.1.1 package(s)
   #
   arch = node[:kernel][:machine]
-  arch = "i386" if arch == "x86_64"
+  arch = "i386" if arch == "i686"
 
   # Install PostgreSQL GPG Key (http://yum.postgresql.org/9.1/redhat/rhel-5-(arch)/pgdg-centos91-9.1-4.noarch.rpm)
     gpgkey = ::File.join(::File.dirname(__FILE__), "..", "files", "centos", "pgdg-centos91-9.1-4.noarch.rpm")
@@ -59,7 +59,6 @@ action :setup_monitoring do
 
     remote_file TMP_FILE do
       source "collectd-postgresql-4.10.0-4.el5.#{arch}.rpm"
-      cookbook 'db_postgres'
     end
 
     package TMP_FILE do
@@ -70,7 +69,6 @@ action :setup_monitoring do
       backup false
       source "postgresql_collectd_plugin.conf.erb"
       notifies :restart, resources(:service => "collectd")
-      cookbook 'db_postgres'
     end
 
   else
