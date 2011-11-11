@@ -45,6 +45,33 @@ action :install_client do
 
   end
 
+action :install_server do
+
+   # == Install PostgreSQL 9.1.1 package(s)
+  #
+  arch = node[:kernel][:machine]
+  arch = "i386" if arch == "i686"
+
+  # Install PostgreSQL GPG Key (http://yum.postgresql.org/9.1/redhat/rhel-5-(arch)/pgdg-centos91-9.1-4.noarch.rpm)
+    gpgkey = ::File.join(::File.dirname(__FILE__), "..", "files", "centos", "pgdg-centos91-9.1-4.noarch.rpm")
+    `rpm --install #{gpgkey}`
+
+    # Packages from rightscale-software repository for PostgreSQL 9.1.1
+    packages = ::File.join(::File.dirname(__FILE__), "..", "files", "centos", "postgresql91-server-9.1.1-1PGDG.rhel5.#{arch}.rpm")
+    `yum -y localinstall #{packages}`
+
+  # install client in converge phase
+    package "postgresql191-devel" do
+      package_name value_for_platform(
+        [ "centos", "redhat", "suse" ] => { "default" => "postgresql" },
+        "default" => "postgresql191-devel"
+      )
+      action :install
+    end
+
+  end
+
+
 action :setup_monitoring do
   service "collectd" do
     action :nothing
