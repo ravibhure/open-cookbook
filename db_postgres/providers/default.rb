@@ -31,7 +31,7 @@ action :install_client do
     `rpm --install #{gpgkey}`
 
     # Packages from rightscale-software repository for PostgreSQL 9.1.1
-    packages = (::File.join(::File.dirname(__FILE__), "..", "files", "centos", "postgresql91-devel-9.1.1-1PGDG.rhel5.#{arch}.rpm")
+    packages = ::File.join(::File.dirname(__FILE__), "..", "files", "centos", "postgresql91-devel-9.1.1-1PGDG.rhel5.#{arch}.rpm")
     `rpm --install #{packages}`
 
   # install client in converge phase
