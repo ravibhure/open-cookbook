@@ -1,0 +1,71 @@
+= Database Manager for PostgreSQL (Alpha) 
+
+== DESCRIPTION:
+
+Provides the PostgreSQL implementation of the 'db_postgres' resource to install and 
+manage PostgreSQL database stand-alone servers and clients.
+
+
+== DETAILS
+
+The 'db_postgres' implementation is defined by a Lightweight Provider, which can be 
+found in the providers/default.rb file.
+
+The majority of the functionality of the PostgreSQL provider is encapsulated 
+in the premium rightscale_tools gem, however, there are currently a handful
+of recipes that can be used without it. See 'Public Recipes' in the USAGE
+section below.
+
+
+== REQUIREMENTS:
+
+* Requires a VM launched from a RightScale managed RightImage 
+
+* Tested on CentOS 5.6 RightImage
+
+* Supports PostgreSQL 9.1 
+
+
+== SETUP:
+
+* Place db_postgres::default recipe into your runlist to setup the db resource.  When
+  using a RightScale ServerTemplate, this will also automatically add the 
+  common database attributes to your ServerTemplate inputs.
+   
+* Also, place the db_postgres::default recipe into your runlist to load the
+  PostgreSQL provider, tuning parameters, as well as other PostgreSQL specific 
+  attributes in as inputs.
+
+== USAGE:
+
+=== Basic usage
+Once setup, use the recipes in the 'db_postgres' cookbook to install and manage your
+PostgreSQL database servers and clients.  See the db_postgres/README.rdoc for usage 
+details.
+
+
+=== PostgreSQL Tuning and postgresql.conf 
+
+Custom tuning parameters can be applied by overriding the postgres_tuning.rb
+attributes file.  For more information and an example override repository
+please see:
+
+  https://github.com/ravibhure/open-cookbook/db_postgres
+  
+
+=== Public Recipes
+Here is the list of db recipes that can be used without the preimum 
+rightscale_tools gem:
+
+* db_postgres::default
+* db_postgres::install_client
+* db_postgres::install_server
+* db_postgres::setup_monitoring
+
+These recipes are used by the RightScale LAMP ServerTemplate.
+
+
+== KNOWN LIMITATIONS
+
+* none
+
