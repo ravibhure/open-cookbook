@@ -21,7 +21,7 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-db node[:db_postgres][:data_dir] do
+db_postgres node[:db_postgres][:data_dir] do
   action :install_client
 end
 
