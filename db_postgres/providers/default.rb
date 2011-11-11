@@ -45,20 +45,6 @@ action :install_client do
 
   end
 
-
-  # == Install PostgreSQL client gem
-  #
-  # Also installs in compile phase
-  #
-  r = execute "install postgres gem" do
-    command "/opt/rightscale/sandbox/bin/gem install postgres --no-rdoc --no-ri"
-  end
-  r.run_action(:run)
-
-  Gem.clear_paths
-  log "Gem reload forced with Gem.clear_paths"
-  end
-
 action :setup_monitoring do
   service "collectd" do
     action :nothing
