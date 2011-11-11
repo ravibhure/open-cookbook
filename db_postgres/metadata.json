@@ -7,6 +7,7 @@
   "conflicting": {
   },
   "recipes": {
+    "db_postgres::install_server": "Runs the server 'db_postgres::install_server' recipes.",
     "db_postgres::setup_monitoring": "Runs to setup monitoring on client  'db_postgres::setup_monitoring' recipes.",
     "db_postgres::default": "Runs the client 'db_postgres::install_client' recipes."
   },
@@ -15,6 +16,19 @@
   },
   "version": "0.0.1",
   "attributes": {
+    "db_postgres/admin/user": {
+      "required": "optional",
+      "calculated": false,
+      "choice": [
+
+      ],
+      "type": "string",
+      "recipes": [
+        "db_postgres::install_server"
+      ],
+      "display_name": "Database Admin Username",
+      "description": "The username of the database user that has 'admin' privileges."
+    },
     "db_postgres": {
       "required": "optional",
       "calculated": false,
@@ -26,6 +40,19 @@
 
       ],
       "display_name": "General Database Options"
+    },
+    "db_postgres/replication/user": {
+      "required": "optional",
+      "calculated": false,
+      "choice": [
+
+      ],
+      "type": "string",
+      "recipes": [
+        "db_postgres::install_server"
+      ],
+      "display_name": "Database Replication Username",
+      "description": "The username of the database user that has 'replciation' privileges."
     },
     "db_postgres/server_usage": {
       "required": "optional",
@@ -41,6 +68,46 @@
       ],
       "display_name": "Server Usage",
       "description": "Use 'dedicated' if the postgres config file allocates all existing resources of the machine.  Use 'shared' if the PostgreSQL config file is configured to use less resources so that it can be run concurrently with other apps like Apache and Rails for example."
+    },
+    "db/fqdn": {
+      "required": "required",
+      "calculated": false,
+      "choice": [
+
+      ],
+      "type": "string",
+      "recipes": [
+        "db_postgres::default",
+        "db_postgres::install_server"
+      ],
+      "display_name": "Database Master FQDN",
+      "description": "The fully qualified domain name for the Master Database."
+    },
+    "db_postgres/admin/password": {
+      "required": "optional",
+      "calculated": false,
+      "choice": [
+
+      ],
+      "type": "string",
+      "recipes": [
+        "db_postgres::install_server"
+      ],
+      "display_name": "Database Admin Password",
+      "description": "The password of the database user that has 'admin' privileges."
+    },
+    "db_postgres/replication/password": {
+      "required": "optional",
+      "calculated": false,
+      "choice": [
+
+      ],
+      "type": "string",
+      "recipes": [
+        "db_postgres::install_server"
+      ],
+      "display_name": "Database Replication Password",
+      "description": "The password of the database user that has 'replciation' privileges."
     }
   },
   "maintainer": "Home, Inc.",

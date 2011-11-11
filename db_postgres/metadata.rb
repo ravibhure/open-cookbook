@@ -6,6 +6,7 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.0.1"
 
 recipe  "db_postgres::default", "Runs the client 'db_postgres::install_client' recipes."
+recipe  "db_postgres::install_server", "Runs the server 'db_postgres::install_server' recipes."
 recipe  "db_postgres::setup_monitoring", "Runs to setup monitoring on client  'db_postgres::setup_monitoring' recipes."
 
 attribute "db_postgres",
@@ -23,3 +24,33 @@ attribute "db_postgres/server_usage",
   :choice => ["shared", "dedicated"],
   :default => "dedicated"
 
+
+attribute "db/fqdn",
+  :display_name => "Database Master FQDN",
+  :description => "The fully qualified domain name for the Master Database.",
+  :required => true,
+  :recipes => [ "db_postgres::default", "db_postgres::install_server" ]
+
+attribute "db_postgres/admin/user",
+  :display_name => "Database Admin Username",
+  :description => "The username of the database user that has 'admin' privileges.",
+  :required => false,
+  :recipes => [ "db_postgres::install_server" ]
+
+attribute "db_postgres/admin/password",
+  :display_name => "Database Admin Password",
+  :description => "The password of the database user that has 'admin' privileges.",
+  :required => false,
+  :recipes => [ "db_postgres::install_server" ]
+
+attribute "db_postgres/replication/user",
+  :display_name => "Database Replication Username",
+  :description => "The username of the database user that has 'replciation' privileges.",
+  :required => false,
+  :recipes => [ "db_postgres::install_server" ]
+
+attribute "db_postgres/replication/password",
+  :display_name => "Database Replication Password",
+  :description => "The password of the database user that has 'replciation' privileges.",
+  :required => false,
+  :recipes => [ "db_postgres::install_server" ]
