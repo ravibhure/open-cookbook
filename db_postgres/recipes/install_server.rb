@@ -32,17 +32,17 @@
 # use a low TTL for your database that's less than or equal to 120 seconds. 
 #
 log "Checking master database TTL settings..." do
-  not_if { node[:db][:fqdn] == "localhost" }
+  not_if { node[:db_postgres][:fqdn] == "localhost" }
 end
 
 log "Skipping master database TTL check for FQDN 'localhost'." do
-  only_if { node[:db][:fqdn] == "localhost" }
+  only_if { node[:db_postgres][:fqdn] == "localhost" }
 end
 
 ruby_block "Master DNS TTL Check" do
-  not_if { node[:db][:fqdn] == "localhost" }
+  not_if { node[:db_postgres][:fqdn] == "localhost" }
   block do
-    MASTER_DB_DNSNAME = "#{node[:db][:fqdn]}"
+    MASTER_DB_DNSNAME = "#{node[:db_postgres][:fqdn]}"
     OPT_DNS_TTL_LIMIT = 120
 
     dnsttl=`dig #{MASTER_DB_DNSNAME} | grep ^#{MASTER_DB_DNSNAME} | awk '{ print $2}'`
@@ -59,9 +59,9 @@ end
 #
 right_link_tag "database:active=true"
 
-db node[:db][:data_dir] do
-  user node[:db][:admin][:user]
-  password node[:db][:admin][:password]
+db_postgres node[:db_postgres][:data_dir] do
+  user node[:db_postgres][:admin][:user]
+  password node[:db_postgres][:admin][:password]
   action :install_server
 end
 

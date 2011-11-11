@@ -22,5 +22,11 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 db_postgres node[:db_postgres][:data_dir] do
+  directory "#{node[:db_postgres][:collectd_plugin_dir]" do
+  action :create
+  mode 0755
+  owner "root"
+  group "root"
+end
   action :setup_monitoring
 end

@@ -60,3 +60,6 @@ if db_postgres[:backup][:slave][:minute] == db_postgres[:backup][:master][:minut
 end
 
 set_unless[:db_postgres][:backup][:slave][:hour] = "*" # every hour
+
+# Monitoring specific
+set_unless[:db_postgres][:collectd_plugin_dir] = "/etc/collectd/conf" # collectd plugin dir
