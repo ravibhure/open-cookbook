@@ -66,6 +66,7 @@ action :setup_monitoring do
     end
 
 #    template ::File.join(node[:rs_utils][:collectd_plugin_dir], 'postgresql.conf') do
+
     template ::File.join(node[:db_postgres][:collectd_plugin_dir], 'postgresql.conf') do
       backup false
       source "postgresql_collectd_plugin.conf.erb"
