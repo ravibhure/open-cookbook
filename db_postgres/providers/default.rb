@@ -77,67 +77,6 @@ action :install_client do
   log "Gem reload forced with Gem.clear_paths"
   end
   end
-action :install_server do
-
-  # == Install PostgreSQL 9.1.1 package(s)
-  # 
-  arch = node[:kernel][:machine]
-  arch = "i386" if arch == "x86_64"
-  
-  if node[:platform] == "centos"
-
-    # Install PostgreSQL GPG Key (http://yum.postgresql.org/9.1/redhat/rhel-5-(arch)/pgdg-centos91-9.1-4.noarch.rpm)
-    gpgkey = ::File.join(::File.dirname(__FILE__), "..", "files", "centos", "pgdg-centos91-9.1-4.noarch.rpm")
-    `rpm --install #{gpgkey}`
-
-    # Packages from rightscale-software repository for PostgreSQL 9.1.1
-    packages = (::File.join(::File.dirname(__FILE__), "..", "files", "centos",["postgresql91-devel-9.1.1-1PGDG.rhel5.#{arch}.rpm", "postgresql91-9.1.1-1PGDG.rhel5.#{arch}.rpm", "postgresql91-libs-9.1.1-1PGDG.rhel5.#{arch}.rpm", "postgresql91-server-9.1.1-1PGDG.rhel5.#{arch}.rpm" ])
-    Chef::Log.info("Packages to install: #{packages.join(",")}")
-    packages.each do |p|
-      r = package p do
-        `rpm --install #{r}`
-      end
-    end
-  else
-
-  # == Install PostgreSQL client gem
-  #
-  # Also installs in compile phase
-  #
-  r = execute "install postgres gem" do
-    command "/opt/rightscale/sandbox/bin/gem install postgres --no-rdoc --no-ri"
-  end
-  r.run_action(:run)
-
-  Gem.clear_paths
-  log "Gem reload forced with Gem.clear_paths"
-  end
-end
-
-execute "/sbin/service postgresql initdb" do
-end
-
-service "postgresql" do
-  supports :restart => true, :status => true, :reload => true
-  action [:enable, :start]
-end
-
-template "#{node[:db_postgres][:dir]}/pg_hba.conf" do
-  source "redhat.pg_hba.conf.erb"
-  owner "postgres"
-  group "postgres"
-  mode 0600
-  notifies :reload, resources(:service => "postgresql")
-end
-
-template "#{node[:db_postgres][:dir]}/postgresql.conf" do
-  source "redhat.postgresql.conf.erb"
-  owner "postgres"
-  group "postgres"
-  mode 0600
-  notifies :restart, resources(:service => "postgresql")
-end
-end
 
 action :setup_monitoring do
   service "collectd" do
