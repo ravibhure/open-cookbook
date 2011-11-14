@@ -62,4 +62,10 @@ end
 set_unless[:db_postgres][:backup][:slave][:hour] = "*" # every hour
 
 # Monitoring specific
+case platform
+when "redhat","centos","fedora","suse"
+set_unless[:db_postgres][:collectd_plugin_dir] = "/etc/collectd.d" # collectd plugin dir
+when "debian","ubuntu"
 set_unless[:db_postgres][:collectd_plugin_dir] = "/etc/collectd/conf" # collectd plugin dir
+end
+
