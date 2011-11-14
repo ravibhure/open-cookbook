@@ -1,4 +1,5 @@
-# Cookbook Name:: db_postgres
+# Cookbook Name:: rs_utils
+# Recipe:: install_tools
 #
 # Copyright (c) 2011 RightScale Inc
 #
@@ -21,13 +22,25 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-directory "#{node[:db_postgres][:collectd_plugin_dir]}" do
-  owner "root"
-  group "root"
-  recursive true
-  action :create
-end
+rs_utils_marker :begin
 
-db_postgres node[:db_postgres][:data_dir] do
-  action :setup_monitoring
+SANDBOX_BIN_DIR = "/opt/rightscale/sandbox/bin"
+RS_TOOL_VERSION = "0.3.7"
+RESOURCE_GEM = ::File.join(::File.dirname(__FILE__), "..", "files", "default", "rightscale_tools_public-#{RS_TOOL_VERSION}.gem")
+RACKSPACE_GEM = ::File.join(::File.dirname(__FILE__), "..", "files", "default", "right_rackspace-0.0.0.gem")
+
+r = gem_package RACKSPACE_GEM do
+  gem_binary "#{SANDBOX_BIN_DIR}/gem"
+  version "0.0.0"
+  action :nothing
 end
+r.run_action(:install)
+
+r = gem_package RESOURCE_GEM do
+  gem_binary "#{SANDBOX_BIN_DIR}/gem"
+  version RS_TOOL_VERSION
+  action :nothing
+end
+r.run_action(:install)
+
+rs_utils_marker :end
