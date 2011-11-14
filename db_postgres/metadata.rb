@@ -5,9 +5,11 @@ description      "Installs/configures a PostgreSQL database server with automate
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.0.1"
 
+depends "rs_utils"
+
 recipe  "db_postgres::default", "Runs the client 'db_postgres::install_client' recipes."
 recipe  "db_postgres::install_server", "Runs the server 'db_postgres::install_server' recipes."
-recipe  "db_postgres::setup_monitoring", "Runs to setup monitoring on client  'db_postgres::setup_monitoring' recipes."
+recipe  "db_postgres::setup_monitoring", "Installs the collectd plugin for database monitoring support, which is required to enable monitoring and alerting functionality for your servers."
 
 attribute "db_postgres",
   :display_name => "General Database Options",
