@@ -1,0 +1,12 @@
+#File created by Ravi
+
+<%= node[:haproxy][:env] %>:
+ <% if node[:haproxy][:db_adapter] = mysql -%>
+ adapter: mysql
+ <% else -%>
+ adapter: postgresql
+ <% end -%>
+ host: <%= node[:haproxy][:db_dns_name] %>
+ username: <%= node[:haproxy][:db_app_user] %>
+ password: <%= node[:haproxy][:db_app_passwd] %>
+ database: <%= node[:haproxy][:db_schema_name] %>

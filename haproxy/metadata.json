@@ -1,33 +1,55 @@
 {
-  "dependencies": {
-  },
-  "name": "haproxy",
-  "maintainer_email": "ravibhure@gmail.com",
-  "attributes": {
-  },
-  "license": "Apache 2.0",
-  "suggestions": {
-  },
-  "platforms": {
-    "fedora": ">= 0.0.0",
-    "centos": ">= 0.0.0",
-    "redhat": ">= 0.0.0"
-  },
-  "maintainer": "Ravi Bhure.",
-  "long_description": "= DESCRIPTION:\n\nInstalls haproxy and prepares the configuration location.\n\n= REQUIREMENTS:\n\n== Platform:\n\nTested on CentOS 5.4.\n\n== Cookbooks:\n\n= ATTRIBUTES: \n\nNo haproxy-specific attributes are used.\n\n= USAGE:\n\nUpdate the haproxy.cfg file with listener(s) for your sites/servers.\n\n= LICENSE and AUTHOR:\n      \nAuthor:: Ravi Bhure (<ravibhure@gmail.com>)\n\nCopyright:: 2011, Ravi Bhure\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n",
-  "version": "0.0.1",
   "recommendations": {
   },
-  "recipes": {
-    "haproxy::default": "HAproxy recipe, Installs and configures HAproxy"
+  "description": "Installs and configures haproxy",
+  "suggestions": {
   },
-  "groupings": {
+  "attributes": {
+    "haproxy/db_adapter": {
+      "required": "optional",
+      "calculated": false,
+      "choice": [
+        "mysql",
+        "postgres"
+      ],
+      "default": "postgres",
+      "type": "string",
+      "recipes": [
+        "haproxy::dbsetup"
+      ],
+      "display_name": "Database Adapter",
+      "description": "Database adapter to connect to Database. (Ex: mysql)"
+    }
   },
   "conflicting": {
   },
+  "recipes": {
+    "haproxy::default": "HAproxy recipe, Installs and configures HAproxy",
+    "haproxy::dbsetup": "HAproxy recipe, configures HAproxy db"
+  },
+  "dependencies": {
+  },
+  "long_description": "= DESCRIPTION:\n\nInstalls haproxy and prepares the configuration location.\n\n= REQUIREMENTS:\n\n== Platform:\n\nTested on CentOS 5.4.\n\n== Cookbooks:\n\n= ATTRIBUTES: \n\nNo haproxy-specific attributes are used.\n\n= USAGE:\n\nUpdate the haproxy.cfg file with listener(s) for your sites/servers.\n\n= LICENSE and AUTHOR:\n      \nAuthor:: Ravi Bhure (<ravibhure@gmail.com>)\n\nCopyright:: 2011, Ravi Bhure\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n",
+  "providing": {
+  },
+  "platforms": {
+    "fedora": [
+
+    ],
+    "centos": [
+
+    ],
+    "redhat": [
+
+    ]
+  },
+  "maintainer": "Ravi Bhure.",
+  "version": "0.0.1",
   "replacing": {
   },
-  "description": "Installs and configures haproxy",
-  "providing": {
+  "license": "Apache 2.0",
+  "name": "haproxy",
+  "maintainer_email": "ravibhure@gmail.com",
+  "groupings": {
   }
 }
