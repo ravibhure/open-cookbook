@@ -1,7 +1,7 @@
 #File created by Ravi
 
 <%= node[:haproxy][:env] %>:
- <% if node[:haproxy][:db_adapter] = mysql -%>
+ <% if node[:haproxy][:db_adapter] == "mysql" -%>
  adapter: mysql
  <% else -%>
  adapter: postgresql
